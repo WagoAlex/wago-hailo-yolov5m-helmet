@@ -172,6 +172,8 @@ This project deploys an AI inference service on a **WAGO Edge Computer 752-9813*
 - **Optional:** Verify the camera feed (for the Logitech Webcam):
 
   ```bash
+  sudo apt install -y v4l-utils
+
   v4l2-ctl --all --device /dev/video0
   ```
 
