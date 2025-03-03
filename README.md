@@ -120,7 +120,7 @@ This project deploys an AI inference service on a **WAGO Edge Computer 752-9813*
   - For **RTSP Camera**:
 
     ```yaml
-    entrypoint: ["./entrypoint.sh", "rtsp"]
+    entrypoint: ["./entrypoint.sh"]
     ```
 
 - **Sample Docker Compose Configuration:**
