@@ -1,2 +1,223 @@
-# wago-hailo-yolov5m-helmet
-This project deploys an AI inference service on a WAGO Edge Computer 752-9813 equipped with the Hailo-8L™ M.2 Key B+M ET Module
+# ML-Based Helmet Detection
+
+## WAGO Edge Computer and Hailo-8L™ M.2 Key B+M ET Module and Yolov5m
+
+## Overview
+
+This project deploys an AI inference service on a **WAGO Edge Computer 752-9813** equipped with the **Hailo-8L™ M.2 Key B+M ET Module**. The service supports both a **Logitech HD Pro Webcam C920** and a **Reolink E1 Pro RTSP camera** (or both) as image sources, based on your configuration. The solution uses Docker Compose (or a Portainer Stack) for containerized deployment and requires installation of specific Hailo drivers and tools.
+
+---
+
+## Hardware Requirements
+
+- **WAGO Edge Computer 752-9813** 
+  - ([**https://www.wago.com/global/edge-devices/edge-computer/p/752-9813**](https://www.wago.com/global/edge-devices/edge-computer/p/752-9813)**)**
+  - Use a mSATA SSD flashed with the WAGO OS via the WAGO USB Installer. ([https://downloadcenter.wago.com/wago/software/details/lwq8xpd8d3np7r1rbxl](https://downloadcenter.wago.com/wago/software/details/lwq8xpd8d3np7r1rbxl))
+- **Hailo-8L™ M.2 Key B+M ET Module**
+  - Installed in the M.2 slot.
+- **Camera Options***The following webcamhas been used:*
+  - **Logitech HD Pro Webcam C920**
+
+    - **Device:** `/dev/video0`
+    - **Driver Info:**
+
+      - **Driver Name:** `uvcvideo`
+      - **Card Type:** `HD Pro Webcam C920`
+      - **Bus Info:** `usb-0000:00:14.0-6`
+      - **Driver Version:** `6.1.124`
+      - **Capabilities:** `0x84a00001`
+    - **Verification:**
+
+      ```bash
+      v4l2-ctl --all --device /dev/video0
+      ```
+
+  - **Reolink E1 Pro RTSP Camera**
+
+    - **Connection:** WiFi / LAN
+    - **RTSP URL:** `rtsp://user:pw@ip:554/h264Preview_01_main`
+
+---
+
+## Installation and Setup
+
+### 1. Prepare the Hardware
+
+- **Flash the SSD:**
+  - Download the WAGO OS image.
+    - https://downloadcenter.wago.com/wago/software/details/lwq8xpd8d3np7r1rbxl
+    - Follow the instrcutions and make sure
+  - Use the WAGO USB Installer to flash the OS onto the mSATA SSD.
+- **Assemble the System:**
+  - Insert the flashed mSATA SSD into the WAGO Edge Computer.
+  - Install the **Hailo-8L™ M.2 Key B+M ET Module** into the M.2 slot.
+  - Connect the camera(s):
+    - For the **Logitech Webcam**, plug it into a USB port.
+    - For the **Reolink Camera**, ensure it is connected via WiFi.
+
+### 2. Prepare the OS
+
+- **GUI :**Make sure you have an installed on top of Debian 12 a GUI like LXDE (my case) or your Distro (e.g. Ubuntu 22.04) is shipped with one.
+
+  ```bash
+  sudo apt-get update -y
+  tasksel (choose a lightweight)
+  ```
+- **Containerization:**Choose one of the following for deployment:
+
+  - **Docker & Docker Compose**
+    - Update/Install with:
+
+      ```bash
+      sudo apt-get update
+
+      sudo apt-get upgrade docker-ce docker-ce-cli containerd.io
+
+      DOCKER_CONFIG=${DOCKER_CONFIG:-$HOME/.docker}
+      mkdir -p $DOCKER_CONFIG/cli-plugins
+      curl -SL https://github.com/docker/compose/releases/download/v2.33.1/docker-compose-linux-x86_64 -o $DOCKER_CONFIG/cli-plugins/docker-compose
+
+      chmod +x $DOCKER_CONFIG/cli-plugins/docker-compose
+
+      docker compose version
+      ```
+
+  **Repository & Model File:**
+
+  - Clone or download the project repository.
+
+---
+
+### 3. Install Software Components
+
+- **Clone the Repository:**
+
+  ```bash
+  git clone <repository_url>
+  cd <repository_folder>
+  ```
+
+- **Install Hailo Drivers:**
+
+  ```bash
+  sudo dpkg -i hailo_integration_tool_1.18.0_amd64.deb
+  ```
+
+- **Place the Model File:**
+
+  - Ensure that `yolov5m-helmet.hef` is located in `/local/workspace`.
+
+### 4. Configure the Deployment
+
+- **Edit the ************************************************************************************************************************************************************************************************`docker-compose.yml`************************************************************************************************************************************************************************************************:**Adjust the entrypoint based on your camera source:
+
+  - For **Webcam**:
+
+    ```yaml
+    entrypoint: ["./entrypoint.sh", "webcam"]
+    ```
+
+  - For **RTSP Camera**:
+
+    ```yaml
+    entrypoint: ["./entrypoint.sh", "rtsp"]
+    ```
+
+- **Sample Docker Compose Configuration:**
+
+  ```yaml
+
+  services:
+    hailo-ai:
+      image: wagoalex/wago-hailo:yolov5m-helmet-v1.2
+      container_name: wago-hailo-yolov5m-helmet
+      privileged: true
+      network_mode: host
+      ipc: host
+      #entrypoint: /bin/bash  # only for debugging
+      #entrypoint: ["./entrypoint.sh","webcam"] # webcam usage
+      entrypoint: ["./entrypoint.sh"] # rtsp usage
+      environment:
+        DISPLAY: ":0"
+        XDG_RUNTIME_DIR: "/run/user/0"
+        FRAME_WIDTH: "640"
+        FRAME_HEIGHT: "640"
+        CONFIDENCE_THRESHOLD: "0.42"
+        MQTT_BROKER: "192.168.2.165"
+        MQTT_PORT: "1883"
+        MQTT_TOPIC: "inference/yolov5m-results"
+        HEF_PATH: "/local/workspace/yolov5m-helmet.hef"
+        WEBCAM_INDEX: "0"
+        RTSP_URL: "rtsp://admin:Master1!@192.168.2.176:554/h264Preview_01_main"
+      volumes:
+        - /tmp/.X11-unix/:/tmp/.X11-unix/
+        - /root/.Xauthority:/root/.Xauthority:ro
+        - /dev:/dev
+        - /lib/firmware:/lib/firmware
+        - /docker/tests/:/local/workspace/share:rw
+      devices:
+        - /dev/dri:/dev/dri
+      group_add:
+        - 44
+      tty: true
+      stdin_open: true
+  ```
+
+### 5. Verify and Deploy
+
+- **Optional:** Verify the camera feed (for the Logitech Webcam):
+
+  ```bash
+  v4l2-ctl --all --device /dev/video0
+  ```
+
+- **Optional:** Verify the camera feed (for the Logitech Webcam):
+
+  ```bash
+  sudo apt update
+  sudo apt install ffmpeg -y
+  ffmpeg -i rtsp://user:password@IP:554/h264Preview_01_main
+  e.g. ffmpeg -i rtsp://admin:Master1!@192.168.2.176:554/h264Preview_01_main
+  ``
+- **Enable access to X Server (for the remote start of a inference window)**:
+
+  ```bash
+  sudo apt update
+  sudo apt install xcb -y
+  xhost +192.168.2.0/24
+
+  ```
+
+- **Deploy the Application:**
+
+  - With Docker Compose:
+
+    ```bash
+    docker compose up -d
+    ```
+
+- **Verify Deployment:**
+
+  - Check container logs for errors:
+
+    ```bash
+    docker logs wago-hailo-yolov5m-helmet-compose
+    ```
+
+---
+
+## Contact and Support
+
+For any issues or further assistance, please contact:
+**Email:** [iot@wago.com](mailto\:iot@wago.com)
+**WAGO System Sales Germany**
+
+---
+
+## License
+
+Include your project’s licensing information here.
+
+---
+
+*This documentation provides a comprehensive guide for first-time users to deploy the AI inference service on the WAGO Edge Computer platform with the Hailo-8L™ M.2 Key B+M ET Module.*
