@@ -60,9 +60,14 @@ This project deploys an AI inference service on a **WAGO Edge Computer 752-9813*
 - **GUI :**Make sure you have an installed on top of Debian 12 a GUI like LXDE (my case) or your Distro (e.g. Ubuntu 22.04) is shipped with one.
 
   ```bash
-  sudo apt-get update -y
-  tasksel (choose a lightweight)
+  sudo apt-get update -y && apt upgrade -y
+  
   ```
+  
+  ```bash
+  tasksel
+  ```
+  [x] LXDE
 - **Containerization:**Choose one of the following for deployment:
 
   - **Docker & Docker Compose**
