@@ -183,7 +183,8 @@ This project deploys an AI inference service on a **WAGO Edge Computer 752-9813*
   sudo apt update
   sudo apt install ffmpeg -y
   ffmpeg -i rtsp://user:password@IP:554/h264Preview_01_main
-  e.g. ffmpeg -i rtsp://admin:Master1!@192.168.2.176:554/h264Preview_01_main
+  e.g. ffmpeg -i 'rtsp://admin:Master1!@192.168.2.176:554/h264Preview_01_main'
+
   ``
 - **Enable access to X Server (for the remote start of a inference window)**:
 
