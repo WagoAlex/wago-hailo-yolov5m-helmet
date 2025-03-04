@@ -165,7 +165,7 @@ This project deploys an AI inference service on a **WAGO Edge Computer 752-9813*
   ":0"
 
   ```bash
-  echo $XDG_RUNTIME_DIR:
+  echo $XDG_RUNTIME_DIR
   ```
 
   "/run/user/0"
