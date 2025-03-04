@@ -247,9 +247,6 @@ For any issues or further assistance, please contact:
 
 ---
 
-## License
-
-Include your project’s licensing information here.
 
 ---
 
