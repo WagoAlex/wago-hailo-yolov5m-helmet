@@ -28,10 +28,6 @@ This project deploys an AI inference service on a **WAGO Edge Computer 752-9813*
       - **Capabilities:** `0x84a00001`
     - **Verification:**
 
-      ```bash
-      v4l2-ctl --all --device /dev/video0
-      ```
-
   - **Reolink E1 Pro RTSP Camera**
 
     - **Connection:** WiFi / LAN
