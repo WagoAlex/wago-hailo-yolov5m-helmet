@@ -180,7 +180,7 @@ This project deploys an AI inference service on a **WAGO Edge Computer 752-9813*
   sudo apt install ffmpeg -y
   ```
   ```bash
-  ffmpeg -i rtsp://user:password@IP:554/h264Preview_01_main
+  ffmpeg -i 'rtsp://user:password@IP:554/h264Preview_01_main'
   ```
   ```bash
   ffmpeg -i 'rtsp://admin:Master1!@192.168.2.176:554/h264Preview_01_main'
