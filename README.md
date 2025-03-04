@@ -175,7 +175,7 @@ This project deploys an AI inference service on a **WAGO Edge Computer 752-9813*
   - MQTT_PORT: "1883"
   - MQTT_TOPIC: "inference/yolov5m-results"
   - CONFIDENCE_THRESHOLD: "0.42"
-  - 
+    
  Change if needed:
   - WEBCAM_INDEX: "0"
   - RTSP_URL: "rtsp://admin:Master1!@192.168.2.176:554/h264Preview_01_main"
