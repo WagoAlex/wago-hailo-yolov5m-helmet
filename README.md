@@ -111,7 +111,40 @@ This project deploys an AI inference service on a **WAGO Edge Computer 752-9813*
   ls /dev/hailo
   ```
 
-### 4. Configure the Deployment
+
+### 4. Verify HW
+
+- **Optional:** Verify the camera feed (for the Logitech Webcam):
+
+  ```bash
+  sudo apt install -y v4l-utils
+
+  v4l2-ctl --all --device /dev/video0
+  ```
+
+- **Optional:** Verify the camera feed (for the Logitech Webcam):
+
+  ```bash
+  sudo apt update
+  sudo apt install ffmpeg -y
+  ```
+  ```bash
+  ffmpeg -i 'rtsp://user:password@IP:554/h264Preview_01_main'
+  ```
+  ```bash
+  ffmpeg -i 'rtsp://admin:Master1!@192.168.2.176:554/h264Preview_01_main'
+  ```
+  
+- **Enable access to X Server (for the remote start of a inference window)**:
+
+  ```bash
+  sudo apt update
+  sudo apt install xcb -y
+  xhost +192.168.2.0/24
+
+  ```
+
+### 5. Configure the Deployment
 
 - **Edit the ************************************************************************************************************************************************************************************************`docker-compose.yml`************************************************************************************************************************************************************************************************:**Adjust the entrypoint based on your camera source:
 
@@ -178,37 +211,6 @@ This project deploys an AI inference service on a **WAGO Edge Computer 752-9813*
 
   "/run/user/0"
 
-### 5. Verify and Deploy
-
-- **Optional:** Verify the camera feed (for the Logitech Webcam):
-
-  ```bash
-  sudo apt install -y v4l-utils
-
-  v4l2-ctl --all --device /dev/video0
-  ```
-
-- **Optional:** Verify the camera feed (for the Logitech Webcam):
-
-  ```bash
-  sudo apt update
-  sudo apt install ffmpeg -y
-  ```
-  ```bash
-  ffmpeg -i 'rtsp://user:password@IP:554/h264Preview_01_main'
-  ```
-  ```bash
-  ffmpeg -i 'rtsp://admin:Master1!@192.168.2.176:554/h264Preview_01_main'
-  ```
-  
-- **Enable access to X Server (for the remote start of a inference window)**:
-
-  ```bash
-  sudo apt update
-  sudo apt install xcb -y
-  xhost +192.168.2.0/24
-
-  ```
 
 - **Deploy the Application:**
 
