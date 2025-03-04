@@ -90,11 +90,8 @@ This project deploys an AI inference service on a **WAGO Edge Computer 752-9813*
 
 ### 3. Install Software Components
 
-- **Copy the link to your browser & transfer the Hailo Integration Tool to your device :**
-
-  ```bash
-  https://hailo.ai/?dl_dev=1&file=8eba3c9665179311fd076c7e245f76ef
-  ```
+- **Create a account at https://hailo.ai/developer-zone/ **
+- Go to https://hailo.ai/developer-zone/software-downloads/ and search for HailoRT & HailoRT – PCIe driver Ubuntu package (deb) --> download the package
 
 - **Install Hailo driver:**
   ```bash
