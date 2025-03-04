@@ -64,7 +64,7 @@ This project deploys an AI inference service on a **WAGO Edge Computer 752-9813*
   tasksel
   ```
   [x] LXDE
-- **Containerization:** Choose one of the following for deployment:
+- **A Containerization:** Choose one of the following for deployment:
 
   - **Docker & Docker Compose**
     - Update/Install with:
@@ -82,9 +82,9 @@ This project deploys an AI inference service on a **WAGO Edge Computer 752-9813*
       docker compose version
       ```
 
-  **Repository & Model File:**
+  **B Golden Image**
 
-  - Clone or download the project repository.
+  - tbd.
 
 ---
 
