@@ -99,7 +99,7 @@ This project deploys an AI inference service on a **WAGO Edge Computer 752-9813*
 - **Install Hailo Integration Tool:**
 
   ```bash
-  sudo dpkg -i hailo_integration_tool_1.18.0_amd64.deb
+  sudo dpkg -i hailo_integration_tool_1.19.0_amd64.deb
   ```
 
 - **Place the Model File:**
