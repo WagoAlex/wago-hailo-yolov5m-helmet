@@ -156,6 +156,19 @@ This project deploys an AI inference service on a **WAGO Edge Computer 752-9813*
     ```yaml
     entrypoint: ["./entrypoint.sh"]
     ```
+    
+  DISPLAY & XDG_RUNTIME_DIR can be different on you host system, verify:
+   
+  ```bash
+  echo $DISPLAY
+  ```
+  ":0"
+
+  ```bash
+  echo $XDG_RUNTIME_DIR:
+  ```
+
+  "/run/user/0"
 
 - **Sample Docker Compose Configuration:**
 
@@ -196,17 +209,7 @@ This project deploys an AI inference service on a **WAGO Edge Computer 752-9813*
       tty: true
       stdin_open: true
   ```
-  DISPLAY & XDG_RUNTIME_DIR can be different on you host system, make sure to  & 
-  ```bash
-  echo $DISPLAY
-  ```
-  ":0"
 
-  ```bash
-  echo $XDG_RUNTIME_DIR:
-  ```
-
-  "/run/user/0"
 
 
 - **Deploy the Application:**
