@@ -26,7 +26,7 @@ This project deploys an AI inference service on a **WAGO Edge Computer 752-9813*
       - **Bus Info:** `usb-0000:00:14.0-6`
       - **Driver Version:** `6.1.124`
       - **Capabilities:** `0x84a00001`
-    - **Verification:**
+
 
   - **Reolink E1 Pro RTSP Camera**
 
