@@ -96,15 +96,20 @@ This project deploys an AI inference service on a **WAGO Edge Computer 752-9813*
   https://hailo.ai/?dl_dev=1&file=8eba3c9665179311fd076c7e245f76ef
   ```
 
-- **Install Hailo Integration Tool:**
-
+- **Install Hailo driver:**
   ```bash
-  sudo dpkg -i hailo_accelerator_integration_tool_1.19.0_amd64.deb
+  https://hailo.ai/developer-zone/documentation/hailort-v4-20-0/?sp_referrer=install/install.html#ubuntu-installer-requirements
   ```
 
-- **Place the Model File:**
-
-  - Ensure that `yolov5m-helmet.hef` is located in `/local/workspace`.
+  ```bash
+  sudo dpkg -i hailort-pcie-driver_4.20.0_all.deb
+  ```
+  ```bash
+  reboot
+  ```
+    ```bash
+  ls /dev/hailo
+  ```
 
 ### 4. Configure the Deployment
 
