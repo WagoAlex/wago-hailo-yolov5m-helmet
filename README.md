@@ -90,10 +90,10 @@ This project deploys an AI inference service on a **WAGO Edge Computer 752-9813*
 
 ### 3. Install Software Components
 
-- **Download from Hailo Integration Tool:**
+- **Copy the link to your browser & transfer the Hailo Integration Tool to your device :**
 
   ```bash
-  wget https://hailo.ai/?dl_dev=1&file=8eba3c9665179311fd076c7e245f76ef
+  https://hailo.ai/?dl_dev=1&file=8eba3c9665179311fd076c7e245f76ef
   ```
 
 - **Install Hailo Integration Tool:**
