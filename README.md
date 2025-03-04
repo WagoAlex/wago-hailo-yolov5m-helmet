@@ -93,7 +93,7 @@ This project deploys an AI inference service on a **WAGO Edge Computer 752-9813*
 - **Download from Hailo Integration Tool:**
 
   ```bash
-  https://hailo.ai/?dl_dev=1&file=8eba3c9665179311fd076c7e245f76ef
+  wget https://hailo.ai/?dl_dev=1&file=8eba3c9665179311fd076c7e245f76ef
   ```
 
 - **Install Hailo Integration Tool:**
