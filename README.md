@@ -137,9 +137,9 @@ This project deploys an AI inference service on a **WAGO Edge Computer 752-9813*
   ```bash
   sudo apt update
   sudo apt install xcb -y
-  xhost +192.168.2.0/24
-
+  xhost +local:root
   ```
+
 
 ### 5. Configure the Deployment
 
