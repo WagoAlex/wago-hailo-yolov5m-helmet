@@ -105,7 +105,7 @@ This project deploys an AI inference service on a **WAGO Edge Computer 752-9813*
   reboot
   ```
     ```bash
-  ls /dev/hailo
+  ls /dev/hailo0
   ```
 
 
