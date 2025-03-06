@@ -185,7 +185,7 @@ This project deploys an AI inference service on a **WAGO Edge Computer 752-9813*
 
   services:
     hailo-ai:
-      image: wagoalex/wago-hailo:yolov5m-helmet-v1.2.1
+      image: wagoalex/wago-hailo:yolov5m-helmet-v1.3
       container_name: wago-hailo-yolov5m-helmet
       privileged: true
       network_mode: host
